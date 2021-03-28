@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/cars")
@@ -54,6 +53,16 @@ public class CarController {
     @GetMapping("show-car-younger-year")
     public String findCarYoungerYear(Model model, @Param("year") int year) {
         model.addAttribute("cars", carService.findCarYoungerYear(year));
+        return "show-list-car";
+    }
+    @GetMapping("show-car-by-year")
+    public String findCarByYear(Model model, @Param("year1") int year1) {
+        model.addAttribute("cars", carService.findCarByYear(year1));
+        return "show-list-car";
+    }
+    @GetMapping("show-all-car-sorted-by-year")
+    public String findAllCarSortedByYear(Model model) {
+        model.addAttribute("cars", carService.findAllCarSortedByYear());
         return "show-list-car";
     }
 

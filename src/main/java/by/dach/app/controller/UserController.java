@@ -54,11 +54,12 @@ public class UserController {
     @PostMapping("/update-user")
     public String updateUser(User user) {
         userService.saveUser(user); //save сам определяет сох или обн
-        return "redirect:";
+        return "redirect:http://localhost:8080/";
     }
 
     @GetMapping("user-info/{id}")
     public String showUserInfo (@PathVariable (name = "id") int id, Model model){
+        model.addAttribute("user", userService.findUserById(id));
         return "user-info";
     }
 

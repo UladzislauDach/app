@@ -11,11 +11,17 @@
         <td>Id</td>
         <td>Year</td>
         <td>Model</td>
+        <td>Volume</td>
+        <td>Transmission</td>
+        <td>Price</td>
     </tr>
     <tr th:each="car : ${cars}">
         <td th:text="${car.id}"></td>
         <td th:text="${car.year}"></td>
         <td th:text="${car.model}"></td>
+        <td th:text="${car.volume}"></td>
+        <td th:text="${car.transmission}"></td>
+        <td th:text="${car.price}"></td>
     </tr>
 </table>
 <p>
@@ -36,5 +42,13 @@
     <input name="year" type="number" id="year" value="0">
     <input type="submit" value="Show">
 </form>
+<p>
+<form method="get" action="/cars/show-car-by-year">
+    <label for="year1">Показать авто выбранного г.в.</label>
+    <input name="year1" type="number" id="year1" value="0">
+    <input type="submit" value="Show">
+</form>
+<p>
+    <a href="/cars/show-all-car-sorted-by-year">Показать все авто с сортировкой по г.в.</a>
 </body>
 </html>

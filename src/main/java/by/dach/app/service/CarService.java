@@ -5,7 +5,10 @@ import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -33,16 +36,25 @@ public class CarService {
         return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model);
     }
 
-    public List<Car> findCarByPartModelName(String partOfName){
+    public List<Car> findCarByPartModelName(String partOfName) {
         return carRepository.findCarByName(partOfName);
     }
 
-    public List<Car>findCarYoungerYear(int year){
+    public List<Car> findCarYoungerYear(int year) {
         return carRepository.findCarYoungerYear(year);
     }
 
-    public List<Car> getAllById(){
-        return carRepository.findAll();
+    //получаем авто опред г.в. с помощью stream api (хоть это и неуместно здесь)
+    public List<Car> findCarByYear(int year) {
+        Map<Integer, List<Car>> map = carRepository.findAll().stream()
+                .collect(Collectors.groupingBy(car -> car.getYear()));
+        return map.get(year);
     }
 
+    //все авто с сортировкой по г.в. от старшего
+    public List<Car> findAllCarSortedByYear() {
+        List<Car> cars = carRepository.findAll().stream()
+                .sorted((c1, c2) -> c2.getYear() - c1.getYear()).collect(Collectors.toList());
+        return cars;
+    }
 }

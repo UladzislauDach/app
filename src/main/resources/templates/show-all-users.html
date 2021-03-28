@@ -16,11 +16,11 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.age}"></td>
-        <td><a th:href="@{users/user-info/{id}(id=${user.id})}">Show user info</a></td>
-        <td><a th:href="@{users/update-user/{id}(id=${user.id})}">Edit</a></td>
-        <td><a th:href="@{users/delete-user/{id}(id=${user.id})}">Delete</a></td>
+        <td><a th:href="@{/users/user-info/{id}(id=${user.id})}">Show user info</a></td>
+        <td><a th:href="@{/users/update-user/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/users/delete-user/{id}(id=${user.id})}">Delete</a></td>
     </tr>
 </table>
-<a href="new-user">Create new user</a>
+<a href="users/new-user">Create new user</a>
 </body>
 </html>
