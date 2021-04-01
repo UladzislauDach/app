@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Transmission type</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="entry:${map}">
+        <td th:text="${entry.key}">transmission</td>
+        <td th:text="${entry.value}">price</td>
+    </tr>
+
+</table>
+</body>
+</html>

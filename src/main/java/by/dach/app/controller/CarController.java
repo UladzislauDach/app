@@ -55,15 +55,28 @@ public class CarController {
         model.addAttribute("cars", carService.findCarYoungerYear(year));
         return "show-list-car";
     }
+
     @GetMapping("show-car-by-year")
     public String findCarByYear(Model model, @Param("year1") int year1) {
         model.addAttribute("cars", carService.findCarByYear(year1));
         return "show-list-car";
     }
+
     @GetMapping("show-all-car-sorted-by-year")
     public String findAllCarSortedByYear(Model model) {
         model.addAttribute("cars", carService.findAllCarSortedByYear());
         return "show-list-car";
+    }
+
+    @GetMapping("show-price-all-car-by-transmission-type")
+    public String findPriceAllByTransmission(Model model) {
+        model.addAttribute("map", carService.findPriceAllByTransmission());
+        return "show-map-car";
+    }
+    @GetMapping("show-car-by-transmission-type")
+    public String findCarByTransmissionType(Model model) {
+        model.addAttribute("map", carService.findCarByTransmissionType());
+        return "show-map-with-list-car";
     }
 
 }

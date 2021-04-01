@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Transmission type</th>
+        <th>Car info</th>
+    </tr>
+    <tr th:each="entry:${map}">
+        <td th:text="${entry.key}">transmission type</td>
+        <td>
+            <table border="1">
+                <tr>
+                    <td>Model</td>
+                    <td>Year</td>
+                </tr>
+                <tr th:each="car:${entry.value}">
+                    <td th:text="${car.model}"></td>
+                    <td th:text="${car.year}"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

@@ -11,11 +11,17 @@
         <td>Id</td>
         <td>Year</td>
         <td>Model</td>
+        <td>Volume</td>
+        <td>Transmission</td>
+        <td>Price</td>
     </tr>
     <tr th:each="car : ${cars}">
         <td th:text="${car.id}"></td>
         <td th:text="${car.year}"></td>
         <td th:text="${car.model}"></td>
+        <td th:text="${car.volume}"></td>
+        <td th:text="${car.transmission}"></td>
+        <td th:text="${car.price}"></td>
     </tr>
 </table>
 <a href="/cars">Back</a>

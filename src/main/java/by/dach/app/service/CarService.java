@@ -1,6 +1,7 @@
 package by.dach.app.service;
 
 import by.dach.app.model.Car;
+import by.dach.app.model.Transmission;
 import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,22 @@ public class CarService {
         List<Car> cars = carRepository.findAll().stream()
                 .sorted((c1, c2) -> c2.getYear() - c1.getYear()).collect(Collectors.toList());
         return cars;
+    }
+
+
+    public Map<Transmission, Integer> findPriceAllByTransmission() {
+        Map<Transmission, Integer> map = carRepository.findAll().stream()
+                .collect(Collectors.groupingBy(Car::getTransmission, Collectors
+                        .reducing(0, Car::getPrice, Integer::sum)));
+//        for (Map.Entry<Transmission, Integer> temp : map.entrySet()) {
+//            System.out.println(temp.getKey() + " " + temp.getValue());
+//        }
+        return map;
+    }
+
+    public Map<Transmission, List<Car>> findCarByTransmissionType() {
+        Map<Transmission, List<Car>> map = carRepository.findAll().stream()
+                .collect(Collectors.groupingBy(Car::getTransmission));
+        return map;
     }
 }
