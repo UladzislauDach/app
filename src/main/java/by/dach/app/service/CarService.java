@@ -75,4 +75,9 @@ public class CarService {
                 .collect(Collectors.groupingBy(Car::getTransmission));
         return map;
     }
+    public Map<Integer, List<Car>> findCarByVolume() {
+        Map<Integer, List<Car>> map = carRepository.findAll().stream()
+                .collect(Collectors.groupingBy(car-> car.getVolume()));
+        return map;
+    }
 }

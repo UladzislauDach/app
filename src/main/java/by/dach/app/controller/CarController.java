@@ -73,9 +73,16 @@ public class CarController {
         model.addAttribute("map", carService.findPriceAllByTransmission());
         return "show-map-car";
     }
+
     @GetMapping("show-car-by-transmission-type")
     public String findCarByTransmissionType(Model model) {
         model.addAttribute("map", carService.findCarByTransmissionType());
+        return "show-map-with-list-car";
+    }
+
+    @GetMapping("show-car-by-volume")
+    public String findCarByVolume(Model model) {
+        model.addAttribute("map", carService.findCarByVolume());
         return "show-map-with-list-car";
     }
 
