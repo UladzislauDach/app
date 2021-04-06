@@ -12,16 +12,11 @@ public class User {
     private String name;
     @Column(name = "age")
     private int age;
-    @Column(name = "car_id")
-    private int carId;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 
-    public User(){}
-
-    public User(int id, String name, int age, int carId) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.carId = carId;
+    public User() {
     }
 
     public int getId() {
@@ -48,12 +43,19 @@ public class User {
         this.age = age;
     }
 
-    public int getCarId() {
-        return carId;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public User(int id, String name, int age, Car car) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.car = car;
     }
 }
 

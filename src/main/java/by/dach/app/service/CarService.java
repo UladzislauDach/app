@@ -5,8 +5,8 @@ import by.dach.app.model.Transmission;
 import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +19,6 @@ public class CarService {
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
-
 
     public List<Car> findAll() {
         return carRepository.findAll();
@@ -48,36 +47,48 @@ public class CarService {
     //получаем авто опред г.в. с помощью stream api (хоть это и неуместно здесь)
     public List<Car> findCarByYear(int year) {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
-                .collect(Collectors.groupingBy(car -> car.getYear()));
+                .collect(Collectors.groupingBy(Car::getYear));
         return map.get(year);
     }
 
     //все авто с сортировкой по г.в. от старшего
     public List<Car> findAllCarSortedByYear() {
-        List<Car> cars = carRepository.findAll().stream()
+        return carRepository.findAll().stream()
                 .sorted((c1, c2) -> c2.getYear() - c1.getYear()).collect(Collectors.toList());
-        return cars;
     }
 
 
     public Map<Transmission, Integer> findPriceAllByTransmission() {
-        Map<Transmission, Integer> map = carRepository.findAll().stream()
+        return carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getTransmission, Collectors
                         .reducing(0, Car::getPrice, Integer::sum)));
 //        for (Map.Entry<Transmission, Integer> temp : map.entrySet()) {
 //            System.out.println(temp.getKey() + " " + temp.getValue());
 //        }
-        return map;
     }
 
     public Map<Transmission, List<Car>> findCarByTransmissionType() {
-        Map<Transmission, List<Car>> map = carRepository.findAll().stream()
+        return carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getTransmission));
-        return map;
     }
+
     public Map<Integer, List<Car>> findCarByVolume() {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
-                .collect(Collectors.groupingBy(car-> car.getVolume()));
+                .collect(Collectors.groupingBy(Car::getVolume));
         return map;
+    }
+
+    public List<Car> findCarByTransmissionTypeWithNativeQuery(String tr_type) {
+        return carRepository.findCarByTransmissionType(tr_type);
+    }
+
+    @Transactional
+    public void deleteCarById(int id) {
+        carRepository.deleteCarById(id);
+    }
+
+    @Transactional
+    public void editCarPriceById(int id, int price) {
+        carRepository.editCarPriceById(id, price);
     }
 }

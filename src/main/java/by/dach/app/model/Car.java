@@ -1,7 +1,5 @@
 package by.dach.app.model;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 
 @Entity

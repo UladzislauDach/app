@@ -57,5 +57,30 @@
 <p>
     <a href="/cars/show-car-by-volume">Показать авто по объёму</a>
 
+<form method="get" action="/cars/show-car-by-transmission-type-with-native-query">
+    <label for="tr_type">Показать авто по типу трансмиссии (native query)</label>
+    <select name="tr_type" , id="tr_type">
+        <option value="awd">Полный привод</option>
+        <option value="rwd">Задний привод</option>
+        <option value="fwd">Передний привод</option>
+    </select>
+    <input type="submit" value="Show">
+</form>
+
+<p>
+<form method="get" action="/cars/delete-car-by-id">
+    <label for="year1">Удалить авто по id</label>
+    <input name="id" type="number" id="id" value="1">
+    <input type="submit" value="Delete">
+</form>
+
+<p>
+<form method="get" action="/cars/edit-car-price-by-id">
+    <label for="id_car_for_edit_price">Изменить стоимость авто с ID </label>
+    <input name="id" type="number" id="id_car_for_edit_price" value="0">
+    <label for="price_car_for_edit"> на значение </label>
+    <input name="price" type="number" id="price_car_for_edit" value="0">
+    <input type="submit" value="Изменить">
+</form>
 </body>
 </html>

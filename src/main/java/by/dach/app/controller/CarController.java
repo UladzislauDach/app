@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -84,6 +86,25 @@ public class CarController {
     public String findCarByVolume(Model model) {
         model.addAttribute("map", carService.findCarByVolume());
         return "show-map-with-list-car";
+    }
+
+    @GetMapping("show-car-by-transmission-type-with-native-query")
+    public String findCarByTransmissionTypeWithNativeQuery(Model model, @Param("tr_type") String tr_type) {
+        model.addAttribute("cars", carService.findCarByTransmissionTypeWithNativeQuery(tr_type));
+        return "show-list-car";
+    }
+
+    @GetMapping("delete-car-by-id")
+    public String deleteCarById(@Param("id") int id) {
+        carService.deleteCarById(id);
+        return "redirect:/cars";
+    }
+
+    @GetMapping("edit-car-price-by-id")
+    public String editCarPriceById(@Param("id") int id,
+                                   @Param("price") int price) {
+        carService.editCarPriceById(id, price);
+        return "redirect:/cars";
     }
 
 }
