@@ -19,17 +19,21 @@ public class Car {
     private Transmission transmission;
     @Column(name = "price")
     private int price;
+    @Embedded
+    @AttributeOverride(name = "type", column = @Column(name = "body_type"))
+    private Body body;
 
     public Car() {
     }
 
-    public Car(int id, int year, String model, int volume, Transmission transmission, int price) {
+    public Car(int id, int year, String model, int volume, Transmission transmission, int price, Body body) {
         this.id = id;
         this.year = year;
         this.model = model;
         this.volume = volume;
         this.transmission = transmission;
         this.price = price;
+        this.body = body;
     }
 
     public int getId() {
@@ -78,5 +82,13 @@ public class Car {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
     }
 }

@@ -14,6 +14,8 @@
         <td>Volume</td>
         <td>Transmission</td>
         <td>Price</td>
+        <td>Body type</td>
+        <td>Vin number</td>
     </tr>
     <tr th:each="car : ${cars}">
         <td th:text="${car.id}"></td>
@@ -22,6 +24,8 @@
         <td th:text="${car.volume}"></td>
         <td th:text="${car.transmission}"></td>
         <td th:text="${car.price}"></td>
+        <td th:text="${car.body.type}"></td>
+        <td th:text="${car.body.vin}"></td>
     </tr>
 </table>
 <p>
