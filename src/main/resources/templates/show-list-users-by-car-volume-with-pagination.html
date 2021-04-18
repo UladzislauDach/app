@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users page</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Car id</td>
+        <td>Car Model</td>
+        <td>Car Year</td>
+        <td>Car Volume</td>
+        <td>Car transmission type</td>
+        <td>Car price</td>
+        <td>Car body type</td>
+        <td>Car vin</td>
+    </tr>
+    <tr th:each="user : ${userPage.content}">
+        <td th:text="${user.id}"/>
+        <td th:text="${user.name}"/>
+        <td th:text="${user.age}"/>
+        <td th:text="${user.car.id}"/>
+        <td th:text="${user.car.model}"/>
+        <td th:text="${user.car.year}"/>
+        <td th:text="${user.car.volume}"/>
+        <td th:text="${user.car.transmission}"/>
+        <td th:text="${user.car.price}"/>
+        <td th:text="${user.car.body.type}"/>
+        <td th:text="${user.car.body.vin}"/>
+
+    </tr>
+</table>
+<article th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/users/find-all-user-where-car-volume-biggest(size=${userPage.size}, page=${pageNumber}, volume=${volume})}"
+       th:text=${pageNumber}></a>
+</article>
+<a href="/users">Go to user menu</a>
+</body>
+</html>

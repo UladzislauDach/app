@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Show All</title>
+</head>
+<body>
+<h2>Users:</h2>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Car id</td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.car.id}"></td>
+        <td><a th:href="@{/users/user-info/{id}(id=${user.id})}">Show user info</a></td>
+        <td><a th:href="@{/users/update-user/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/users/delete-user/{id}(id=${user.id})}">Delete</a></td>
+    </tr>
+</table>
+<a href="users/new-user">Create new user</a>
+</p>
+<a href="/">Go to main page</a>
+</p>
+
+<form method="get" action="/users/find-all-user-by-car-transmission-type">
+    <label for="tr_type">Показать всех владельцев авто с типом привода:</label>
+    <select name="tr_type" id="tr_type">
+        <option value="awd">AWD</option>
+        <option value="fwd">FWD</option>
+        <option value="rwd">RWD</option>
+    </select>
+    <input type="submit" value="Show">
+</form>
+
+</p>
+
+<form method="get" action="/users/find-all-user-by-car-body-type">
+    <label for="body_type">Показать всех владельцев авто с типом привода:</label>
+    <select name="bodyType" id="body_type">
+        <option value="universal">Универсал</option>
+        <option value="truck">Грузовик</option>
+        <option value="sedan">Седан</option>
+    </select>
+    <input type="submit" value="Show">
+</form>
+
+<p>
+<form method="get" action="/users/show-all-users-with-pagination">
+    <label for="sort_type">Показать всех юзеров с пагинацией и сортировкой по </label>
+    <select name="sortType" id="sort_type">
+        <option value="id">id</option>
+        <option value="name">name</option>
+        <option value="age">age</option>
+        <option value="carId">car id</option>
+    </select>
+    <label for="size"> кол-во записей на странице</label>
+    <input name="size" type="number" id="size" value="5">
+    <input type="submit" value="Show">
+</form>
+
+<p>
+<form method="get" action="/users/find-all-user-where-car-volume-biggest">
+    <label for="volume">Показать авто юзеров и тачки объём которых больше</label>
+    <input name="volume" type="number" id="volume" value="0">
+
+    <input type="submit" value="Show">
+</form>
+
+</body>
+</html>

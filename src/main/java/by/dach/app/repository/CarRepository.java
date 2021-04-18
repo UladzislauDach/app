@@ -34,4 +34,5 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     @Modifying
     @Query(value = "update cars set price = :price where id = :id", nativeQuery = true)
     void editCarPriceById(int id, int price);
+
 }

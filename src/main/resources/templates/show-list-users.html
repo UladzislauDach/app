@@ -2,25 +2,23 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Show All</title>
+    <title>Show list users</title>
 </head>
 <body>
-<h2>Users:</h2>
 <table border="1">
     <tr>
         <td>id</td>
         <td>Name</td>
         <td>Age</td>
+        <td>Car id</td>
     </tr>
-    <tr th:each="user : ${users}">
+    <tr th:each="user : ${user}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.age}"></td>
-        <td><a th:href="@{/users/user-info/{id}(id=${user.id})}">Show user info</a></td>
-        <td><a th:href="@{/users/update-user/{id}(id=${user.id})}">Edit</a></td>
-        <td><a th:href="@{/users/delete-user/{id}(id=${user.id})}">Delete</a></td>
+        <td th:text="${user.car.id}"></td>
     </tr>
 </table>
-<a href="users/new-user">Create new user</a>
+<a href="/">Go to main page</a>
 </body>
 </html>

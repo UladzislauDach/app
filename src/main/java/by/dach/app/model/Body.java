@@ -1,11 +1,14 @@
 package by.dach.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
 @Embeddable
 public class Body {
+    @Column
     String type;
+    @Column
     String vin;
 
     public Body() {

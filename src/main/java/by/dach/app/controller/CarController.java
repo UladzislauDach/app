@@ -1,5 +1,6 @@
 package by.dach.app.controller;
 
+import by.dach.app.model.Transmission;
 import by.dach.app.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

@@ -1,16 +1,23 @@
 package by.dach.app.service;
 
+import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
 import by.dach.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,5 +37,23 @@ public class UserService {
 
     public User findUserById(int id) {
         return userRepository.getOne(id);
+    }
+
+    public List<User> findAllUserByCarTransmissionType(Transmission transmissionType) {
+        return userRepository.findAllUserByCarTransmissionType(transmissionType);
+    }
+
+    public List<User> findAllUserByCarBodyType(String bodyType) {
+        return userRepository.findAllUserByCarBodyType(bodyType);
+    }
+
+    public Page<User> findAll(int page, int size, Sort sort) {
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return userRepository.findAll(pageable);
+    }
+
+    public Page<User> findAllUserWhereCarVolumeBiggest (int page, int size, int volume){
+        Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
+        return userRepository.findAllUserWhereCarVolumeBiggest(pageable, volume);
     }
 }

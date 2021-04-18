@@ -19,6 +19,13 @@ public class User {
     public User() {
     }
 
+    public User(int id, String name, int age, Car car) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.car = car;
+    }
+
     public int getId() {
         return id;
     }
@@ -50,15 +57,6 @@ public class User {
     public void setCar(Car car) {
         this.car = car;
     }
-
-    public User(int id, String name, int age, Car car) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.car = car;
-    }
-
-
 }
 
 
