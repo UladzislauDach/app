@@ -18,17 +18,17 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.age}"></td>
         <td th:text="${user.car.id}"></td>
-        <td><a th:href="@{/users/user-info/{id}(id=${user.id})}">Show user info</a></td>
-        <td><a th:href="@{/users/update-user/{id}(id=${user.id})}">Edit</a></td>
-        <td><a th:href="@{/users/delete-user/{id}(id=${user.id})}">Delete</a></td>
+        <td><a th:href="@{/users/info/{id}(id=${user.id})}">Show user info</a></td>
+        <td><a th:href="@{/users/update/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td>
     </tr>
 </table>
-<a href="users/new-user">Create new user</a>
+<a href="users/new">Create new user</a>
 </p>
 <a href="/">Go to main page</a>
 </p>
 
-<form method="get" action="/users/find-all-user-by-car-transmission-type">
+<form method="get" action="/users/find-all-by-car-transmission-type">
     <label for="tr_type">Показать всех владельцев авто с типом привода:</label>
     <select name="tr_type" id="tr_type">
         <option value="awd">AWD</option>
@@ -40,7 +40,7 @@
 
 </p>
 
-<form method="get" action="/users/find-all-user-by-car-body-type">
+<form method="get" action="/users/find-all-by-car-body-type">
     <label for="body_type">Показать всех владельцев авто с типом привода:</label>
     <select name="bodyType" id="body_type">
         <option value="universal">Универсал</option>
@@ -51,7 +51,7 @@
 </form>
 
 <p>
-<form method="get" action="/users/show-all-users-with-pagination">
+<form method="get" action="/users/show-all-with-pagination">
     <label for="sort_type">Показать всех юзеров с пагинацией и сортировкой по </label>
     <select name="sortType" id="sort_type">
         <option value="id">id</option>
@@ -65,8 +65,8 @@
 </form>
 
 <p>
-<form method="get" action="/users/find-all-user-where-car-volume-biggest">
-    <label for="volume">Показать авто юзеров и тачки объём которых больше</label>
+<form method="get" action="/users/find-all-where-car-volume-bigger">
+    <label for="volume">Показать авто юзеров и тачки (with pagination) объём которых больше</label>
     <input name="volume" type="number" id="volume" value="0">
 
     <input type="submit" value="Show">

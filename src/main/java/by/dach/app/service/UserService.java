@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 @Service
@@ -52,8 +51,8 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public Page<User> findAllUserWhereCarVolumeBiggest (int page, int size, int volume){
-        Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
-        return userRepository.findAllUserWhereCarVolumeBiggest(pageable, volume);
+    public Page<User> findAllUserWhereCarVolumeBigger(int page, int size, int volume) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        return userRepository.findAllUserWhereCarVolumeBigger(pageable, volume);
     }
 }

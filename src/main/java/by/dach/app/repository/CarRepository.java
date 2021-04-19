@@ -11,13 +11,10 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
-    List<Car> findCarByModel(String model);
-
     List<Car> findCarByYearAfter(int year);
 
     List<Car> findCarByYearBetweenAndModelEquals(int firstYer, int secondYear, String model);
 
-    //поиск по части названия модели
     @Query("select c from Car c where c.model like %?1%")
     List<Car> findCarByName(String partOfName);
 

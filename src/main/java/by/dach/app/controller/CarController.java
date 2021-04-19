@@ -1,15 +1,11 @@
 package by.dach.app.controller;
 
-import by.dach.app.model.Transmission;
 import by.dach.app.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/cars")
@@ -24,84 +20,77 @@ public class CarController {
     @GetMapping
     public String mainPage(Model model) {
         model.addAttribute("cars", carService.findAll());
-        return "car-main";
+        return "car/main";
     }
 
-    // поиска авто по названию модели
-    @GetMapping("show-car-by-model-jymper")
-    public String findCarModel(Model model) {
-        model.addAttribute("cars", carService.findAllCarByModel("Jymper"));
-        return "show-list-car";
-    }
-
-    @GetMapping("show-car-after-2000")
+    @GetMapping("show-after-2000")
     public String findCarYear(Model model) {
-        model.addAttribute("cars", carService.findCarAfterYear(2000));
-        return "show-list-car";
+        model.addAttribute("cars", carService.findAfterYear(2000));
+        return "car/show-list";
     }
 
-    @GetMapping("show-car-in-year-interval-and-model")
+    @GetMapping("show-in-year-interval-and-model")
     public String findCarYearIntervalModel(Model model) {
-        model.addAttribute("cars", carService.findCarByYearIntervalAndModel(1998,
-                2005, "Caddy"));
-        return "show-list-car";
+        model.addAttribute("cars", carService.findByYearIntervalAndModel(1998,
+                2005, "Audi"));
+        return "car/show-list";
     }
 
-    @GetMapping("show-car-by-part-name")
+    @GetMapping("show-by-part-name")
     public String findCarByPartName(Model model, @Param("pattern") String pattern) {
-        model.addAttribute("cars", carService.findCarByPartModelName(pattern));
-        return "show-list-car";
+        model.addAttribute("cars", carService.findByPartModelName(pattern));
+        return "car/show-list";
     }
 
-    @GetMapping("show-car-younger-year")
+    @GetMapping("show-younger-year")
     public String findCarYoungerYear(Model model, @Param("year") int year) {
-        model.addAttribute("cars", carService.findCarYoungerYear(year));
-        return "show-list-car";
+        model.addAttribute("cars", carService.findYoungerYear(year));
+        return "car/show-list";
     }
 
     @GetMapping("show-car-by-year")
-    public String findCarByYear(Model model, @Param("year1") int year1) {
-        model.addAttribute("cars", carService.findCarByYear(year1));
-        return "show-list-car";
+    public String findCarByYear(Model model, @Param("year1") int year) {
+        model.addAttribute("cars", carService.findByYear(year));
+        return "car/show-list";
     }
 
-    @GetMapping("show-all-car-sorted-by-year")
+    @GetMapping("show-all-sorted-by-year")
     public String findAllCarSortedByYear(Model model) {
-        model.addAttribute("cars", carService.findAllCarSortedByYear());
-        return "show-list-car";
+        model.addAttribute("cars", carService.findAllSortedByYear());
+        return "car/show-list";
     }
 
-    @GetMapping("show-price-all-car-by-transmission-type")
+    @GetMapping("show-price-all-by-transmission-type")
     public String findPriceAllByTransmission(Model model) {
         model.addAttribute("map", carService.findPriceAllByTransmission());
-        return "show-map-car";
+        return "car/show-map";
     }
 
-    @GetMapping("show-car-by-transmission-type")
+    @GetMapping("show-by-transmission-type")
     public String findCarByTransmissionType(Model model) {
-        model.addAttribute("map", carService.findCarByTransmissionType());
-        return "show-map-with-list-car";
+        model.addAttribute("map", carService.findByTransmissionType());
+        return "car/show-map-with-list";
     }
 
-    @GetMapping("show-car-by-volume")
+    @GetMapping("show-by-volume")
     public String findCarByVolume(Model model) {
-        model.addAttribute("map", carService.findCarByVolume());
-        return "show-map-with-list-car";
+        model.addAttribute("map", carService.findByVolume());
+        return "car/show-map-with-list";
     }
 
-    @GetMapping("show-car-by-transmission-type-with-native-query")
-    public String findCarByTransmissionTypeWithNativeQuery(Model model, @Param("tr_type") String tr_type) {
-        model.addAttribute("cars", carService.findCarByTransmissionTypeWithNativeQuery(tr_type));
-        return "show-list-car";
+    @GetMapping("show-by-transmission-type-with-native-query")
+    public String findCarByTransmissionTypeWithNativeQuery(Model model, @RequestParam("tr_type") String tr_type) {
+        model.addAttribute("cars", carService.findByTransmissionTypeWithNativeQuery(tr_type));
+        return "car/show-list";
     }
 
-    @GetMapping("delete-car-by-id")
+    @GetMapping("delete-by-id")
     public String deleteCarById(@Param("id") int id) {
         carService.deleteCarById(id);
         return "redirect:/cars";
     }
 
-    @GetMapping("edit-car-price-by-id")
+    @GetMapping("edit-price-by-id")
     public String editCarPriceById(@Param("id") int id,
                                    @Param("price") int price) {
         carService.editCarPriceById(id, price);

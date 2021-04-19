@@ -35,7 +35,7 @@
     </tr>
 </table>
 <article th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/users/show-all-users-with-pagination(size=${userPage.size}, page=${pageNumber}, sortType=${sortType})}"
+    <a th:href="@{/users/show-all-with-pagination(size=${userPage.size}, page=${pageNumber}, sortType=${sortType})}"
        th:text=${pageNumber}></a>
 </article>
 <a href="/users">Go to user menu</a>

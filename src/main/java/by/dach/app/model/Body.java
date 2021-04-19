@@ -2,12 +2,11 @@ package by.dach.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 
 @Embeddable
 public class Body {
     @Column
-    String type;
+    String type;//todo make enum
     @Column
     String vin;
 

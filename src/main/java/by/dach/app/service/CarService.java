@@ -24,35 +24,31 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public List<Car> findAllCarByModel(String model) {
-        return carRepository.findCarByModel(model);
-    }
-
-    public List<Car> findCarAfterYear(int year) {
+    public List<Car> findAfterYear(int year) {
         return carRepository.findCarByYearAfter(year);
     }
 
-    public List<Car> findCarByYearIntervalAndModel(int firstYear, int secondYear, String model) {
+    public List<Car> findByYearIntervalAndModel(int firstYear, int secondYear, String model) {
         return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model);
     }
 
-    public List<Car> findCarByPartModelName(String partOfName) {
+    public List<Car> findByPartModelName(String partOfName) {
         return carRepository.findCarByName(partOfName);
     }
 
-    public List<Car> findCarYoungerYear(int year) {
+    public List<Car> findYoungerYear(int year) {
         return carRepository.findCarYoungerYear(year);
     }
 
     //получаем авто опред г.в. с помощью stream api (хоть это и неуместно здесь)
-    public List<Car> findCarByYear(int year) {
+    public List<Car> findByYear(int year) {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getYear));
         return map.get(year);
     }
 
     //все авто с сортировкой по г.в. от старшего
-    public List<Car> findAllCarSortedByYear() {
+    public List<Car> findAllSortedByYear() {
         return carRepository.findAll().stream()
                 .sorted((c1, c2) -> c2.getYear() - c1.getYear()).collect(Collectors.toList());
     }
@@ -67,18 +63,18 @@ public class CarService {
 //        }
     }
 
-    public Map<Transmission, List<Car>> findCarByTransmissionType() {
+    public Map<Transmission, List<Car>> findByTransmissionType() {
         return carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getTransmission));
     }
 
-    public Map<Integer, List<Car>> findCarByVolume() {
+    public Map<Integer, List<Car>> findByVolume() {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getVolume));
         return map;
     }
 
-    public List<Car> findCarByTransmissionTypeWithNativeQuery(String tr_type) {
+    public List<Car> findByTransmissionTypeWithNativeQuery(String tr_type) {
         return carRepository.findCarByTransmissionType(tr_type);
     }
 

@@ -28,40 +28,39 @@
         <td th:text="${car.body.vin}"></td>
     </tr>
 </table>
+
 <p>
-    <a href="/cars/show-car-by-model-jymper">Показать авто модели Jymper</a>
+    <a href="/cars/show-after-2000">Показать авто после 2000 г.в.</a>
 <p>
-    <a href="/cars/show-car-after-2000">Показать авто после 2000 г.в.</a>
+    <a href="/cars/show-in-year-interval-and-model">Показать авто модели Audi с промежутком г.в. с 1998 по 2005</a>
 <p>
-    <a href="/cars/show-car-in-year-interval-and-model">Показать авто модели Caddy с промежутком г.в. с 1998 по 2005</a>
-<p>
-<form method="get" action="/cars/show-car-by-part-name">
+<form method="get" action="/cars/show-by-part-name">
     <label for="pattern">Показать авто по части названия модели</label>
     <input name="pattern" type="text" id="pattern">
     <input type="submit" value="Show">
 </form>
 <p>
-<form method="get" action="/cars/show-car-younger-year">
+<form method="get" action="/cars/show-younger-year">
     <label for="year">Показать авто после выбранного г.в.</label>
     <input name="year" type="number" id="year" value="0">
     <input type="submit" value="Show">
 </form>
 <p>
-<form method="get" action="/cars/show-car-by-year">
+<form method="get" action="/cars/show-by-year">
     <label for="year1">Показать авто выбранного г.в.</label>
     <input name="year1" type="number" id="year1" value="0">
     <input type="submit" value="Show">
 </form>
 <p>
-    <a href="/cars/show-all-car-sorted-by-year">Показать все авто с сортировкой по г.в.</a>
+    <a href="/cars/show-all-sorted-by-year">Показать все авто с сортировкой по г.в.</a>
 <p>
-    <a href="/cars/show-price-all-car-by-transmission-type">Показать стоимость всех авто по типу привода</a>
+    <a href="/cars/show-price-all-by-transmission-type">Показать стоимость всех авто по типу привода</a>
 <p>
-    <a href="/cars/show-car-by-transmission-type">Показать авто по типу привода</a>
+    <a href="/cars/show-by-transmission-type">Показать авто по типу привода</a>
 <p>
-    <a href="/cars/show-car-by-volume">Показать авто по объёму</a>
+    <a href="/cars/show-by-volume">Показать авто по объёму</a>
 
-<form method="get" action="/cars/show-car-by-transmission-type-with-native-query">
+<form method="get" action="/cars/show-by-transmission-type-with-native-query">
     <label for="tr_type">Показать авто по типу трансмиссии (native query)</label>
     <select name="tr_type" id="tr_type">
         <option value="awd">Полный привод</option>
@@ -72,14 +71,14 @@
 </form>
 
 <p>
-<form method="get" action="/cars/delete-car-by-id">
+<form method="get" action="/cars/delete-by-id">
     <label for="year1">Удалить авто по id</label>
     <input name="id" type="number" id="id" value="1">
     <input type="submit" value="Delete">
 </form>
 
 <p>
-<form method="get" action="/cars/edit-car-price-by-id">
+<form method="get" action="/cars/edit-price-by-id">
     <label for="id_car_for_edit_price">Изменить стоимость авто с ID </label>
     <input name="id" type="number" id="id_car_for_edit_price" value="0">
     <label for="price_car_for_edit"> на значение </label>
