@@ -2,27 +2,30 @@ package by.dach.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 public class Body {
     @Column
-    String type;//todo make enum
+    @Enumerated(EnumType.STRING)
+    BodyType type;
     @Column
     String vin;
 
-    public Body() {
-    }
-
-    public Body(String type, String vin) {
+    public Body(BodyType type, String vin) {
         this.type = type;
         this.vin = vin;
     }
 
-    public String getType() {
+    public Body() {
+    }
+
+    public BodyType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(BodyType type) {
         this.type = type;
     }
 

@@ -35,7 +35,7 @@
     </tr>
 </table>
 <article th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/users/find-all-where-car-volume-biggest(size=${userPage.size}, page=${pageNumber}, volume=${volume})}"
+    <a th:href="@{/users/find-all-where-car-volume-bigger(size=${userPage.size}, page=${pageNumber-1}, volume=${volume}, sort=${sort})}"
        th:text=${pageNumber}></a>
 </article>
 <a href="/users">Go to user menu</a>

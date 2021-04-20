@@ -1,5 +1,6 @@
 package by.dach.app.repository;
 
+import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllUserByCarTransmissionType(Transmission tr_type);
 
     @Query("select u from User u where u.car.body.type = :bodyType")
-    List<User> findAllUserByCarBodyType(String bodyType);
+    List<User> findAllUserByCarBodyType(BodyType bodyType);
 
     @Query("select u from User u where u.car.volume > :volume")
     Page<User> findAllUserWhereCarVolumeBigger(Pageable pageable, int volume);

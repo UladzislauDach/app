@@ -1,5 +1,6 @@
 package by.dach.app.service;
 
+import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
 import by.dach.app.repository.UserRepository;
@@ -42,17 +43,16 @@ public class UserService {
         return userRepository.findAllUserByCarTransmissionType(transmissionType);
     }
 
-    public List<User> findAllUserByCarBodyType(String bodyType) {
+    public List<User> findAllUserByCarBodyType(BodyType bodyType) {
         return userRepository.findAllUserByCarBodyType(bodyType);
     }
 
-    public Page<User> findAll(int page, int size, Sort sort) {
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
-    public Page<User> findAllUserWhereCarVolumeBigger(int page, int size, int volume) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+    public Page<User> findAllUserWhereCarVolumeBigger(Pageable pageable, int volume) {
+//        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
         return userRepository.findAllUserWhereCarVolumeBigger(pageable, volume);
     }
 }

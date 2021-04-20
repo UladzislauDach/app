@@ -29,8 +29,8 @@
 </p>
 
 <form method="get" action="/users/find-all-by-car-transmission-type">
-    <label for="tr_type">Показать всех владельцев авто с типом привода:</label>
-    <select name="tr_type" id="tr_type">
+    <label for="transmissionType">Показать всех владельцев авто с типом привода:</label>
+    <select name="transmissionType" id="transmissionType">
         <option value="awd">AWD</option>
         <option value="fwd">FWD</option>
         <option value="rwd">RWD</option>
@@ -41,8 +41,8 @@
 </p>
 
 <form method="get" action="/users/find-all-by-car-body-type">
-    <label for="body_type">Показать всех владельцев авто с типом привода:</label>
-    <select name="bodyType" id="body_type">
+    <label for="bodyType">Показать всех владельцев авто с типом привода:</label>
+    <select name="bodyType" id="bodyType">
         <option value="universal">Универсал</option>
         <option value="truck">Грузовик</option>
         <option value="sedan">Седан</option>
@@ -52,8 +52,8 @@
 
 <p>
 <form method="get" action="/users/show-all-with-pagination">
-    <label for="sort_type">Показать всех юзеров с пагинацией и сортировкой по </label>
-    <select name="sortType" id="sort_type">
+    <label for="sort">Показать всех юзеров с пагинацией и сортировкой по </label>
+    <select name="sort" id="sort">
         <option value="id">id</option>
         <option value="name">name</option>
         <option value="age">age</option>
@@ -67,8 +67,17 @@
 <p>
 <form method="get" action="/users/find-all-where-car-volume-bigger">
     <label for="volume">Показать авто юзеров и тачки (with pagination) объём которых больше</label>
-    <input name="volume" type="number" id="volume" value="0">
-
+    <input name="volume" type="number" id="volume" value="2000">
+    <label for="size2"> по </label>
+    <input name="size" type="number" id="size2" value="5">
+    <label for="size"> записей на странице </label>
+    <label for="sort2"> c сортировкой по </label>
+    <select name="sort" id="sort2">
+        <option value="id">id</option>
+        <option value="name">name</option>
+        <option value="age">age</option>
+        <option value="car.id">car id</option>
+    </select>
     <input type="submit" value="Show">
 </form>
 
