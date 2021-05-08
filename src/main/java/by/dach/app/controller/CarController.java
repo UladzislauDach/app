@@ -1,5 +1,7 @@
 package by.dach.app.controller;
 
+import by.dach.app.model.CarDTO;
+import by.dach.app.model.User;
 import by.dach.app.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +23,18 @@ public class CarController {
     public String mainPage(Model model) {
         model.addAttribute("cars", carService.findAll());
         return "car/main";
+    }
+
+    @GetMapping("new")
+    public String newCar(Model model) {
+        model.addAttribute("carDTO", new CarDTO());
+        return "car/form-of-creation";
+    }
+
+    @PostMapping("/save")
+    public String createUser(CarDTO carDTO) {
+        carService.saveCar (carDTO);
+        return "redirect:/";
     }
 
     @GetMapping("show-after-2000")
@@ -48,8 +62,8 @@ public class CarController {
         return "car/show-list";
     }
 
-    @GetMapping("show-car-by-year")
-    public String findCarByYear(Model model, @Param("year1") int year) {
+    @GetMapping("show-by-year")
+    public String findCarByYear(Model model, @Param("year") int year) {
         model.addAttribute("cars", carService.findByYear(year));
         return "car/show-list";
     }

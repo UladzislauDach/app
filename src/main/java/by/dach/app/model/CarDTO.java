@@ -1,41 +1,18 @@
 package by.dach.app.model;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "cars")
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "year")
+public class CarDTO {
     private int year;
-    @Column(name = "model")
     private String model;
-    @Column(name = "volume")
     private int volume;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "transmission")
     private Transmission transmission;
-    @Column(name = "price")
     private int price;
-    @Enumerated(EnumType.STRING)
-    @Column (name = "body_type")
     private BodyType bodyType;
-    @Column (name = "vin")
-    private String  vin;
-    @Embedded
-    @AttributeOverride(name = "creationAt", column = @Column(name = "creation_time"))
-    @AttributeOverride(name = "innerCode", column = @Column(name = "inner_code"))
-    private CarServiceInfo carServiceInfo;
+    private String vin;
 
-
-    public Car() {
+    public CarDTO() {
     }
 
-    public Car(int id, int year, String model, int volume, Transmission transmission, int price, BodyType bodyType, String vin, CarServiceInfo carServiceInfo) {
-        this.id = id;
+    public CarDTO(int year, String model, int volume, Transmission transmission, int price, BodyType bodyType, String vin) {
         this.year = year;
         this.model = model;
         this.volume = volume;
@@ -43,15 +20,6 @@ public class Car {
         this.price = price;
         this.bodyType = bodyType;
         this.vin = vin;
-        this.carServiceInfo = carServiceInfo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getYear() {
@@ -94,6 +62,7 @@ public class Car {
         this.price = price;
     }
 
+
     public BodyType getBodyType() {
         return bodyType;
     }
@@ -108,13 +77,5 @@ public class Car {
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public CarServiceInfo getCarServiceInfo() {
-        return carServiceInfo;
-    }
-
-    public void setCarServiceInfo(CarServiceInfo carServiceInfo) {
-        this.carServiceInfo = carServiceInfo;
     }
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create car</title>
+</head>
+<body>
+<form action="#" th:action="@{save}" th:object="${carDTO}" method="post">
+    <label for="year">year</label>
+    <input type="number" th:field="*{year}" id="year" placeholder="year">
+    <label for="model">model</label>
+    <input type="text" th:field="*{model}" id="model" placeholder="model">
+    <label for="volume">volume</label>
+    <input type="number" th:field="*{volume}" id="volume" placeholder="volume">
+    <label th:field="*{transmission}">volume</label>
+    <select name="transmission" id="transmission">
+        <option value="awd">Полный привод</option>
+        <option value="rwd">Задний привод</option>
+        <option value="fwd">Передний привод</option>
+    </select>
+    <label for="price">price</label>
+    <input type="number" th:field="*{price}" id="price" placeholder="price">
+
+    <label th:field="*{carServiceInfo.type}">carServiceInfo type</label>
+    <select name="carServiceInfo" id="carServiceInfo">
+        <option value="sedan">Седан</option>
+        <option value="universal">Универсал</option>
+        <option value="truck">Грузовик</option>
+    </select>
+
+    <input type="submit" value="Add user">
+</form>
+</body>
+</html>

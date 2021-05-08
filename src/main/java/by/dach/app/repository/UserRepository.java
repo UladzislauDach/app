@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.car.transmission = :tr_type")
     List<User> findAllUserByCarTransmissionType(Transmission tr_type);
 
-    @Query("select u from User u where u.car.body.type = :bodyType")
+    @Query("select u from User u where u.car.bodyType = :bodyType")
     List<User> findAllUserByCarBodyType(BodyType bodyType);
 
     @Query("select u from User u where u.car.volume > :volume")

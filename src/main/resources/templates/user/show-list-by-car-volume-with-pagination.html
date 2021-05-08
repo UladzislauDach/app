@@ -16,7 +16,7 @@
         <td>Car Volume</td>
         <td>Car transmission type</td>
         <td>Car price</td>
-        <td>Car body type</td>
+        <td>Car carServiceInfo type</td>
         <td>Car vin</td>
     </tr>
     <tr th:each="user : ${userPage.content}">
@@ -29,8 +29,8 @@
         <td th:text="${user.car.volume}"/>
         <td th:text="${user.car.transmission}"/>
         <td th:text="${user.car.price}"/>
-        <td th:text="${user.car.body.type}"/>
-        <td th:text="${user.car.body.vin}"/>
+        <td th:text="${user.car.bodyType}"/>
+        <td th:text="${user.car.vin}"/>
 
     </tr>
 </table>

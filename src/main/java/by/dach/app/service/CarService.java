@@ -1,12 +1,14 @@
 package by.dach.app.service;
 
 import by.dach.app.model.Car;
+import by.dach.app.model.CarDTO;
 import by.dach.app.model.Transmission;
 import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +20,18 @@ public class CarService {
     @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
+    }
+
+    public Car saveCar(CarDTO carDTO) {
+        Car car = new Car();
+        car.setYear(carDTO.getYear());
+        car.setModel(carDTO.getModel());
+        car.setVolume(carDTO.getVolume());
+        car.setTransmission(carDTO.getTransmission());
+        car.setPrice(carDTO.getPrice());
+        car.setBodyType(carDTO.getBodyType());
+
+        return carRepository.save(car);
     }
 
     public List<Car> findAll() {
