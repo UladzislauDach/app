@@ -12,7 +12,7 @@
     <input type="text" th:field="*{model}" id="model" placeholder="model">
     <label for="volume">volume</label>
     <input type="number" th:field="*{volume}" id="volume" placeholder="volume">
-    <label th:field="*{transmission}">volume</label>
+    <label th:field="*{transmission}">transmission</label>
     <select name="transmission" id="transmission">
         <option value="awd">Полный привод</option>
         <option value="rwd">Задний привод</option>
@@ -20,15 +20,16 @@
     </select>
     <label for="price">price</label>
     <input type="number" th:field="*{price}" id="price" placeholder="price">
-
-    <label th:field="*{carServiceInfo.type}">carServiceInfo type</label>
-    <select name="carServiceInfo" id="carServiceInfo">
+    <label th:field="*{bodyType}">body type</label>
+    <select name="bodyType" id="bodyType">
         <option value="sedan">Седан</option>
         <option value="universal">Универсал</option>
         <option value="truck">Грузовик</option>
     </select>
+    <label for="vin">vin</label>
+    <input type="text" th:field="*{vin}" id="vin" placeholder="vin">
 
-    <input type="submit" value="Add user">
+    <input type="submit" value="Add car">
 </form>
 </body>
 </html>

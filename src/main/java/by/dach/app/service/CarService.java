@@ -2,6 +2,7 @@ package by.dach.app.service;
 
 import by.dach.app.model.Car;
 import by.dach.app.model.CarDTO;
+import by.dach.app.model.CarServiceInfo;
 import by.dach.app.model.Transmission;
 import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,6 +32,8 @@ public class CarService {
         car.setTransmission(carDTO.getTransmission());
         car.setPrice(carDTO.getPrice());
         car.setBodyType(carDTO.getBodyType());
+        car.setVin(carDTO.getVin());
+        car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carDTO.getModel() + carDTO.getBodyType()));
 
         return carRepository.save(car);
     }
