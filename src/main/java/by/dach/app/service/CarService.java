@@ -1,5 +1,6 @@
 package by.dach.app.service;
 
+import by.dach.app.mappers.CarMapper;
 import by.dach.app.model.Car;
 import by.dach.app.model.CarDTO;
 import by.dach.app.model.CarServiceInfo;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,23 +18,18 @@ import java.util.stream.Collectors;
 @Service
 public class CarService {
     private final CarRepository carRepository;
+    private final CarMapper carMapper;
 
     @Autowired
-    public CarService(CarRepository carRepository) {
+    public CarService(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
+        this.carMapper = carMapper;
     }
 
     public Car saveCar(CarDTO carDTO) {
-        Car car = new Car();
-        car.setYear(carDTO.getYear());
-        car.setModel(carDTO.getModel());
-        car.setVolume(carDTO.getVolume());
-        car.setTransmission(carDTO.getTransmission());
-        car.setPrice(carDTO.getPrice());
-        car.setBodyType(carDTO.getBodyType());
-        car.setVin(carDTO.getVin());
+        //Car car = CarMapper.INSTANCE.carDtoToCar(carDTO);
+        Car car = carMapper.carDtoToCar(carDTO);
         car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carDTO.getModel() + carDTO.getBodyType()));
-
         return carRepository.save(car);
     }
 

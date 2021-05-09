@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
-
-
     List<Car> findCarByYearAfter(int year);
 
     List<Car> findCarByYearBetweenAndModelEquals(int firstYer, int secondYear, String model);
