@@ -3,11 +3,13 @@ package by.dach.app.controller;
 import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
+import by.dach.app.model.dto.UserFormDto;
 import by.dach.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +37,13 @@ public class UserController {
 
     @GetMapping("/new")
     public String newUser(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserFormDto());
         return "user/form-of-creation";
     }
 
     @PostMapping("/save")
-    public String createUser(User user) {
-        userService.saveUser(user);
+    public String createUser(UserFormDto userFormDto) {
+        userService.saveUser(userFormDto);
         return "redirect:/";
     }
 
@@ -53,14 +55,14 @@ public class UserController {
 
     @GetMapping("/update/{id}")
     public String updateUserForm(@PathVariable("id") int id, Model model) {
-        User user = userService.findUserById(id);
-        model.addAttribute(user);
+        UserFormDto userFormDto = userService.findUserById(id);
+        model.addAttribute("userFormDto", userFormDto);
         return "user/update-form";
     }
 
-    @PostMapping("/update")
-    public String updateUser(User user) {
-        userService.saveUser(user); //save сам определяет сох или обн
+    @PostMapping("/update" )
+    public String updateUser(@Param("id") int id, UserFormDto userFormDto) {
+        userService.saveUser(userFormDto, id); //save сам определяет сох или обн
         return "redirect:/";
     }
 

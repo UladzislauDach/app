@@ -1,6 +1,7 @@
 package by.dach.app.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -15,15 +16,26 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+    @Column(name = "creation_time")
+    private LocalDateTime creationAt;
 
     public User() {
     }
 
-    public User(int id, String name, int age, Car car) {
+    public User(int id, String name, int age, Car car, LocalDateTime creationAt) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.car = car;
+        this.creationAt = creationAt;
+    }
+
+    public LocalDateTime getCreationAt() {
+        return creationAt;
+    }
+
+    public void setCreationAt(LocalDateTime creationAt) {
+        this.creationAt = creationAt;
     }
 
     public int getId() {

@@ -14,6 +14,10 @@
         <td>Volume</td>
         <td>Transmission</td>
         <td>Price</td>
+        <td>Body type</td>
+        <td>Vin number</td>
+        <td>Create time</td>
+        <td>Service info</td>
     </tr>
     <tr th:each="car : ${cars}">
         <td th:text="${car.id}"></td>
@@ -22,6 +26,11 @@
         <td th:text="${car.volume}"></td>
         <td th:text="${car.transmission}"></td>
         <td th:text="${car.price}"></td>
+        <td th:text="${car.bodyType}"></td>
+        <td th:text="${car.vin}"></td>
+        <td th:text="${car.carServiceInfo.getCreationAt()}"></td>
+        <td th:text="${car.carServiceInfo.getInnerCode()}"></td>
+
     </tr>
 </table>
 <a href="/cars">Back</a>

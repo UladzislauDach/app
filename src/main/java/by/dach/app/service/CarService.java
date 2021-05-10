@@ -1,10 +1,9 @@
 package by.dach.app.service;
 
-import by.dach.app.mappers.CarMapper;
-import by.dach.app.model.Car;
-import by.dach.app.model.CarDTO;
-import by.dach.app.model.CarServiceInfo;
-import by.dach.app.model.Transmission;
+import by.dach.app.mappers.EntityMapper;
+import by.dach.app.model.*;
+import by.dach.app.model.dto.CarFormDto;
+import by.dach.app.model.dto.CarListDto;
 import by.dach.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,52 +17,52 @@ import java.util.stream.Collectors;
 @Service
 public class CarService {
     private final CarRepository carRepository;
-    private final CarMapper carMapper;
+    private final EntityMapper entityMapper;
 
     @Autowired
-    public CarService(CarRepository carRepository, CarMapper carMapper) {
+    public CarService(CarRepository carRepository, EntityMapper entityMapper) {
         this.carRepository = carRepository;
-        this.carMapper = carMapper;
+        this.entityMapper = entityMapper;
     }
 
-    public Car saveCar(CarDTO carDTO) {
+    public Car saveCar(CarFormDto carFormDto) {
         //Car car = CarMapper.INSTANCE.carDtoToCar(carDTO);
-        Car car = carMapper.carDtoToCar(carDTO);
-        car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carDTO.getModel() + carDTO.getBodyType()));
+        Car car = entityMapper.carDtoToCar(carFormDto);
+        car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
         return carRepository.save(car);
     }
 
-    public List<Car> findAll() {
-        return carRepository.findAll();
+    public List<CarListDto> findAll() {
+        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
-    public List<Car> findAfterYear(int year) {
-        return carRepository.findCarByYearAfter(year);
+    public List<CarListDto> findAfterYear(int year) {
+        return carRepository.findCarByYearAfter(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
-    public List<Car> findByYearIntervalAndModel(int firstYear, int secondYear, String model) {
-        return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model);
+    public List<CarListDto> findByYearIntervalAndModel(int firstYear, int secondYear, String model) {
+        return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
-    public List<Car> findByPartModelName(String partOfName) {
-        return carRepository.findCarByName(partOfName);
+    public List<CarListDto> findByPartModelName(String partOfName) {
+        return carRepository.findCarByName(partOfName).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
-    public List<Car> findYoungerYear(int year) {
-        return carRepository.findCarYoungerYear(year);
+    public List<CarListDto> findYoungerYear(int year) {
+        return carRepository.findCarYoungerYear(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
     //получаем авто опред г.в. с помощью stream api (хоть это и неуместно здесь)
-    public List<Car> findByYear(int year) {
+    public List<CarListDto> findByYear(int year) {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getYear));
-        return map.get(year);
+        return map.get(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
     //все авто с сортировкой по г.в. от старшего
-    public List<Car> findAllSortedByYear() {
+    public List<CarListDto> findAllSortedByYear() {
         return carRepository.findAll().stream()
-                .sorted((c1, c2) -> c2.getYear() - c1.getYear()).collect(Collectors.toList());
+                .sorted((c1, c2) -> c2.getYear() - c1.getYear()).map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
 
@@ -71,24 +70,20 @@ public class CarService {
         return carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getTransmission, Collectors
                         .reducing(0, Car::getPrice, Integer::sum)));
-//        for (Map.Entry<Transmission, Integer> temp : map.entrySet()) {
-//            System.out.println(temp.getKey() + " " + temp.getValue());
-//        }
     }
 
-    public Map<Transmission, List<Car>> findByTransmissionType() {
-        return carRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Car::getTransmission));
+    public Map<Transmission, List<CarListDto>> findByTransmissionType() {
+        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto)
+                .collect(Collectors.groupingBy(CarListDto::getTransmission));
     }
 
-    public Map<Integer, List<Car>> findByVolume() {
-        Map<Integer, List<Car>> map = carRepository.findAll().stream()
-                .collect(Collectors.groupingBy(Car::getVolume));
-        return map;
+    public Map<Integer, List<CarListDto>> findByVolume() {
+        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto)
+                .collect(Collectors.groupingBy(CarListDto::getVolume));
     }
 
-    public List<Car> findByTransmissionTypeWithNativeQuery(String tr_type) {
-        return carRepository.findCarByTransmissionType(tr_type);
+    public List<CarListDto> findByTransmissionTypeWithNativeQuery(String tr_type) {
+        return carRepository.findCarByTransmissionType(tr_type).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
     }
 
     @Transactional

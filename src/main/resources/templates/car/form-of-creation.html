@@ -5,13 +5,13 @@
     <title>Create car</title>
 </head>
 <body>
-<form action="#" th:action="@{save}" th:object="${carDTO}" method="post">
+<form action="#" th:action="@{save}" th:object="${car}" method="post">
     <label for="year">year</label>
     <input type="number" th:field="*{year}" id="year" placeholder="year">
     <label for="model">model</label>
     <input type="text" th:field="*{model}" id="model" placeholder="model">
-    <label for="volume">volume</label>
-    <input type="number" th:field="*{volume}" id="volume" placeholder="volume">
+    <label for="engineVolume">Engine volume</label>
+    <input type="number" th:field="*{engineVolume}" id="engineVolume" placeholder="engineVolume">
     <label th:field="*{transmission}">transmission</label>
     <select name="transmission" id="transmission">
         <option value="awd">Полный привод</option>

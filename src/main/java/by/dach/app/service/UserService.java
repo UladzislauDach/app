@@ -1,14 +1,14 @@
 package by.dach.app.service;
 
+import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
+import by.dach.app.model.dto.UserFormDto;
 import by.dach.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,26 +17,33 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final EntityMapper entityMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EntityMapper entityMapper) {
         this.userRepository = userRepository;
+        this.entityMapper = entityMapper;
     }
 
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    public User saveUser(User user) {
+    public User saveUser(UserFormDto userFormDto, int id) {
+        User user = entityMapper.userFormDtoToUser(userFormDto);
+        user.setId(id);
         return userRepository.save(user);
+    }
+    public User saveUser(UserFormDto userFormDto) {
+        return userRepository.save(entityMapper.userFormDtoToUser(userFormDto));
     }
 
     public void deleteUserById(int id) {
         userRepository.deleteById(id);
     }
 
-    public User findUserById(int id) {
-        return userRepository.getOne(id);
+    public UserFormDto findUserById(int id) {
+        return entityMapper.userToUserFormDto(userRepository.getOne(id));
     }
 
     public List<User> findAllUserByCarTransmissionType(Transmission transmissionType) {

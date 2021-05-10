@@ -5,15 +5,13 @@
     <title>Update user form</title>
 </head>
 <body>
-<form action="#" th:action="@{/users/update}" th:object="${user}" method="post">
-    <label for="id">Id</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="Id">
+<form action="#" th:action="@{/users/update?id={id}(id=${id})}" th:object="${userFormDto}" method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <label for="age">Age</label>
     <input type="number" th:field="*{age}" id="age" placeholder="Age">
     <label for="carId">carId</label>
-    <input type="number" th:field="*{car.id}" id="carId" placeholder="carId">
+    <input type="number" th:field="*{carId}" id="carId" placeholder="carId">
     <input type="submit" value="Edit user">
 </form>
 

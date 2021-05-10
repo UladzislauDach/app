@@ -1,7 +1,6 @@
 package by.dach.app.controller;
 
-import by.dach.app.model.CarDTO;
-import by.dach.app.model.User;
+import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -27,13 +26,13 @@ public class CarController {
 
     @GetMapping("new")
     public String newCar(Model model) {
-        model.addAttribute("carDTO", new CarDTO());
+        model.addAttribute("car", new CarFormDto());
         return "car/form-of-creation";
     }
 
     @PostMapping("/save")
-    public String createUser(CarDTO carDTO) {
-        carService.saveCar (carDTO);
+    public String createUser(CarFormDto carFormDto) {
+        carService.saveCar (carFormDto);
         return "redirect:/";
     }
 
@@ -77,7 +76,7 @@ public class CarController {
     @GetMapping("show-price-all-by-transmission-type")
     public String findPriceAllByTransmission(Model model) {
         model.addAttribute("map", carService.findPriceAllByTransmission());
-        return "car/show-map";
+        return "car/show-map-by-transmission";
     }
 
     @GetMapping("show-by-transmission-type")

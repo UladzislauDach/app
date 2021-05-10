@@ -1,26 +1,15 @@
-package by.dach.app.model;
+package by.dach.app.model.dto;
 
-public class CarDTO {
+import by.dach.app.model.BodyType;
+import by.dach.app.model.Transmission;
+
+public abstract class BaseCarDto {
     private int year;
     private String model;
-    private int volume;
     private Transmission transmission;
     private int price;
     private BodyType bodyType;
     private String vin;
-
-    public CarDTO() {
-    }
-
-    public CarDTO(int year, String model, int volume, Transmission transmission, int price, BodyType bodyType, String vin) {
-        this.year = year;
-        this.model = model;
-        this.volume = volume;
-        this.transmission = transmission;
-        this.price = price;
-        this.bodyType = bodyType;
-        this.vin = vin;
-    }
 
     public int getYear() {
         return year;
@@ -38,14 +27,6 @@ public class CarDTO {
         this.model = model;
     }
 
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
     public Transmission getTransmission() {
         return transmission;
     }
@@ -61,7 +42,6 @@ public class CarDTO {
     public void setPrice(int price) {
         this.price = price;
     }
-
 
     public BodyType getBodyType() {
         return bodyType;
