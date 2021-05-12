@@ -5,6 +5,8 @@ import by.dach.app.model.*;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.CarListDto;
 import by.dach.app.repository.CarRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class CarService {
     private final CarRepository carRepository;
     private final EntityMapper entityMapper;
+    static final Logger log = LoggerFactory.getLogger(CarService.class);
 
     @Autowired
     public CarService(CarRepository carRepository, EntityMapper entityMapper) {
@@ -26,9 +29,9 @@ public class CarService {
     }
 
     public Car saveCar(CarFormDto carFormDto) {
-        //Car car = CarMapper.INSTANCE.carDtoToCar(carDTO);
         Car car = entityMapper.carDtoToCar(carFormDto);
         car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
+        log.info("Entity Car successful writing/update in to database: " + car.getModel() + " " + car.getYear() + " " + car.getVin());
         return carRepository.save(car);
     }
 
@@ -89,6 +92,7 @@ public class CarService {
     @Transactional
     public void deleteCarById(int id) {
         carRepository.deleteCarById(id);
+        log.info("Entity Car successful delete from database ID:" + id);
     }
 
     @Transactional
