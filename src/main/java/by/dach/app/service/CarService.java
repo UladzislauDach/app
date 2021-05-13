@@ -36,36 +36,36 @@ public class CarService {
     }
 
     public List<CarListDto> findAll() {
-        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findAll().stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     public List<CarListDto> findAfterYear(int year) {
-        return carRepository.findCarByYearAfter(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findCarByYearAfter(year).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     public List<CarListDto> findByYearIntervalAndModel(int firstYear, int secondYear, String model) {
-        return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findCarByYearBetweenAndModelEquals(firstYear, secondYear, model).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     public List<CarListDto> findByPartModelName(String partOfName) {
-        return carRepository.findCarByName(partOfName).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findCarByName(partOfName).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     public List<CarListDto> findYoungerYear(int year) {
-        return carRepository.findCarYoungerYear(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findCarYoungerYear(year).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     //получаем авто опред г.в. с помощью stream api (хоть это и неуместно здесь)
     public List<CarListDto> findByYear(int year) {
         Map<Integer, List<Car>> map = carRepository.findAll().stream()
                 .collect(Collectors.groupingBy(Car::getYear));
-        return map.get(year).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return map.get(year).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     //все авто с сортировкой по г.в. от старшего
     public List<CarListDto> findAllSortedByYear() {
         return carRepository.findAll().stream()
-                .sorted((c1, c2) -> c2.getYear() - c1.getYear()).map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+                .sorted((c1, c2) -> c2.getYear() - c1.getYear()).map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
 
@@ -76,17 +76,17 @@ public class CarService {
     }
 
     public Map<Transmission, List<CarListDto>> findByTransmissionType() {
-        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto)
+        return carRepository.findAll().stream().map(entityMapper::carToCarListDto)
                 .collect(Collectors.groupingBy(CarListDto::getTransmission));
     }
 
     public Map<Integer, List<CarListDto>> findByVolume() {
-        return carRepository.findAll().stream().map(entityMapper::carToCarViewDto)
+        return carRepository.findAll().stream().map(entityMapper::carToCarListDto)
                 .collect(Collectors.groupingBy(CarListDto::getVolume));
     }
 
     public List<CarListDto> findByTransmissionTypeWithNativeQuery(String tr_type) {
-        return carRepository.findCarByTransmissionType(tr_type).stream().map(entityMapper::carToCarViewDto).collect(Collectors.toList());
+        return carRepository.findCarByTransmissionType(tr_type).stream().map(entityMapper::carToCarListDto).collect(Collectors.toList());
     }
 
     @Transactional

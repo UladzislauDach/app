@@ -8,8 +8,20 @@ public abstract class BaseCarDto {
     private String model;
     private Transmission transmission;
     private int price;
-    private BodyType bodyType;
     private String vin;
+    private BodyType bodyType;
+
+    public BaseCarDto() {
+    }
+
+    public BaseCarDto(int year, String model, Transmission transmission, int price, String vin, BodyType bodyType) {
+        this.year = year;
+        this.model = model;
+        this.transmission = transmission;
+        this.price = price;
+        this.vin = vin;
+        this.bodyType = bodyType;
+    }
 
     public int getYear() {
         return year;
@@ -43,19 +55,19 @@ public abstract class BaseCarDto {
         this.price = price;
     }
 
-    public BodyType getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(BodyType bodyType) {
-        this.bodyType = bodyType;
-    }
-
     public String getVin() {
         return vin;
     }
 
     public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
     }
 }

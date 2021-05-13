@@ -4,18 +4,24 @@ import by.dach.app.model.BodyType;
 import by.dach.app.model.CarServiceInfo;
 import by.dach.app.model.Transmission;
 
+import java.time.LocalDateTime;
+
 public class CarListDto extends BaseCarDto {
     private int id;
     private int volume;
-    private CarServiceInfo carServiceInfo;
+    private String creationAt;
+    private String innerCode;
+
 
     public CarListDto() {
     }
 
-    public CarListDto(int id, int volume, CarServiceInfo carServiceInfo) {
+    public CarListDto(int year, String model, Transmission transmission, int price, String vin, BodyType bodyType, int id, int volume, String creationAt, String innerCode) {
+        super(year, model, transmission, price, vin, bodyType);
         this.id = id;
         this.volume = volume;
-        this.carServiceInfo = carServiceInfo;
+        this.creationAt = creationAt;
+        this.innerCode = innerCode;
     }
 
     public int getId() {
@@ -34,11 +40,19 @@ public class CarListDto extends BaseCarDto {
         this.volume = volume;
     }
 
-    public CarServiceInfo getCarServiceInfo() {
-        return carServiceInfo;
+    public String getCreationAt() {
+        return creationAt;
     }
 
-    public void setCarServiceInfo(CarServiceInfo carServiceInfo) {
-        this.carServiceInfo = carServiceInfo;
+    public void setCreationAt(String creationAt) {
+        this.creationAt = creationAt;
+    }
+
+    public String getInnerCode() {
+        return innerCode;
+    }
+
+    public void setInnerCode(String innerCode) {
+        this.innerCode = innerCode;
     }
 }
