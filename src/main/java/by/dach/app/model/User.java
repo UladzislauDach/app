@@ -2,7 +2,6 @@ package by.dach.app.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -19,9 +18,6 @@ public class User {
     @Column(name = "creation_time")
     private LocalDateTime creationAt;
 
-    public User() {
-    }
-
     public User(int id, String name, int age, Car car, LocalDateTime creationAt) {
         this.id = id;
         this.name = name;
@@ -30,12 +26,7 @@ public class User {
         this.creationAt = creationAt;
     }
 
-    public LocalDateTime getCreationAt() {
-        return creationAt;
-    }
-
-    public void setCreationAt(LocalDateTime creationAt) {
-        this.creationAt = creationAt;
+    public User() {
     }
 
     public int getId() {
@@ -68,6 +59,14 @@ public class User {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public LocalDateTime getCreationAt() {
+        return creationAt;
+    }
+
+    public void setCreationAt(LocalDateTime creationAt) {
+        this.creationAt = creationAt;
     }
 }
 

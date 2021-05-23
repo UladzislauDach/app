@@ -11,12 +11,12 @@ public class CarServiceInfo {
     @Column
     String innerCode;
 
-    public CarServiceInfo() {
-    }
-
     public CarServiceInfo(LocalDateTime creationAt, String innerCode) {
         this.creationAt = creationAt;
         this.innerCode = innerCode;
+    }
+
+    public CarServiceInfo() {
     }
 
     public LocalDateTime getCreationAt() {

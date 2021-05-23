@@ -1,7 +1,6 @@
 package by.dach.app.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cars")
@@ -21,18 +20,14 @@ public class Car {
     @Column(name = "price")
     private int price;
     @Enumerated(EnumType.STRING)
-    @Column (name = "body_type")
+    @Column(name = "body_type")
     private BodyType bodyType;
-    @Column (name = "vin")
-    private String  vin;
+    @Column(name = "vin")
+    private String vin;
     @Embedded
     @AttributeOverride(name = "creationAt", column = @Column(name = "creation_time"))
     @AttributeOverride(name = "innerCode", column = @Column(name = "inner_code"))
     private CarServiceInfo carServiceInfo;
-
-
-    public Car() {
-    }
 
     public Car(int id, int year, String model, int volume, Transmission transmission, int price, BodyType bodyType, String vin, CarServiceInfo carServiceInfo) {
         this.id = id;
@@ -44,6 +39,9 @@ public class Car {
         this.bodyType = bodyType;
         this.vin = vin;
         this.carServiceInfo = carServiceInfo;
+    }
+
+    public Car() {
     }
 
     public int getId() {

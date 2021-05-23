@@ -31,7 +31,7 @@ public class CarService {
     public Car saveCar(CarFormDto carFormDto) {
         Car car = entityMapper.carDtoToCar(carFormDto);
         car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
-        log.info("Entity Car successful writing/update in to database: " + car.getModel() + " " + car.getYear() + " " + car.getVin());
+        log.info("Entity Car successful writing/update in to database: {}, {}, {}", carFormDto.getModel(), carFormDto.getBodyType(), carFormDto.getEngineVolume());
         return carRepository.save(car);
     }
 
