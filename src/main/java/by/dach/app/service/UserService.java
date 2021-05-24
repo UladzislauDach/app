@@ -1,6 +1,6 @@
 package by.dach.app.service;
 
-import by.dach.app.mappers.UserMapper;
+import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
@@ -19,13 +19,13 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final EntityMapper entityMapper;
     static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, EntityMapper entityMapper) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
+        this.entityMapper = entityMapper;
     }
 
     public List<User> getAll() {
@@ -33,23 +33,23 @@ public class UserService {
     }
 
     public User saveUser(UserFormDto userFormDto, int id) {
-        User user = userMapper.userFormDtoToUser(userFormDto);
+        User user = entityMapper.userFormDtoToUser(userFormDto);
         user.setId(id);
-        log.info("Entity User successful writing/update in to database: " + user.getName() + " " + user.getAge());
+        log.info("Entity User successful writing/update in to database: {}, {}", "name " + user.getName(), "age" + user.getAge());
         return userRepository.save(user);
     }
 
     public User saveUser(UserFormDto userFormDto) {
-        return userRepository.save(userMapper.userFormDtoToUser(userFormDto));
+        return userRepository.save(entityMapper.userFormDtoToUser(userFormDto));
     }
 
     public void deleteUserById(int id) {
         userRepository.deleteById(id);
-        log.info("Entity User successful delete from database ID: " + id);
+        log.info("Entity User successful delete from database ID: {}", id);
     }
 
     public UserFormDto findUserById(int id) {
-        return userMapper.userToUserFormDto(userRepository.getOne(id));
+        return entityMapper.userToUserFormDto(userRepository.getOne(id));
     }
 
     public List<User> findAllUserByCarTransmissionType(Transmission transmissionType) {

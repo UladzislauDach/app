@@ -92,7 +92,7 @@ public class CarService {
     @Transactional
     public void deleteCarById(int id) {
         carRepository.deleteCarById(id);
-        log.info("Entity Car successful delete from database ID:" + id);
+        log.info("Entity Car successful delete from database ID:{}", id);
     }
 
     @Transactional
