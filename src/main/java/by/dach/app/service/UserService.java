@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public User saveUser(UserFormDto userFormDto, int id) {
         User user = entityMapper.userFormDtoToUser(userFormDto);
         user.setId(id);
@@ -39,10 +41,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
     public User saveUser(UserFormDto userFormDto) {
         return userRepository.save(entityMapper.userFormDtoToUser(userFormDto));
     }
 
+    @Transactional
     public void deleteUserById(int id) {
         userRepository.deleteById(id);
         log.info("Entity User successful delete from database ID: {}", id);

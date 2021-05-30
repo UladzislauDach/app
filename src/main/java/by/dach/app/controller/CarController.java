@@ -1,16 +1,23 @@
 package by.dach.app.controller;
 
 import by.dach.app.model.dto.CarFormDto;
+import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.service.CarService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Controller
 @RequestMapping("/cars")
 public class CarController {
+    static final Logger log = LoggerFactory.getLogger(CarController.class);
+
     private final CarService carService;
 
     @Autowired
@@ -32,7 +39,7 @@ public class CarController {
 
     @PostMapping("/save")
     public String createUser(CarFormDto carFormDto) {
-        carService.saveCar (carFormDto);
+        carService.saveCar(carFormDto);
         return "redirect:/";
     }
 
@@ -107,6 +114,21 @@ public class CarController {
     public String editCarPriceById(@Param("id") int id,
                                    @Param("price") int price) {
         carService.editCarPriceById(id, price);
+        return "redirect:/cars";
+    }
+
+    @GetMapping("add-maintenance-list")
+    public String getMaintenanceForm(Model model) {
+        model.addAttribute("maintenanceUpload", new MaintenanceUploadForm());
+        return "car/add-maintenance-list-form";
+    }
+
+    @PostMapping("add-maintenance-list")
+    public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm) {
+        log.info("File uploaded name {}, size {}", maintenanceUploadForm.getExcelFile().getOriginalFilename(),
+                maintenanceUploadForm.getExcelFile().getSize());
+
+        carService.addMaintenanceList(maintenanceUploadForm);
         return "redirect:/cars";
     }
 

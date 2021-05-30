@@ -4,12 +4,14 @@ import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.*;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.CarListDto;
+import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.repository.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +30,7 @@ public class CarService {
         this.entityMapper = entityMapper;
     }
 
+    @Transactional
     public Car saveCar(CarFormDto carFormDto) {
         Car car = entityMapper.carDtoToCar(carFormDto);
         car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
@@ -98,5 +101,9 @@ public class CarService {
     @Transactional
     public void editCarPriceById(int id, int price) {
         carRepository.editCarPriceById(id, price);
+    }
+
+    public void addMaintenanceList(MaintenanceUploadForm file) {
+        System.out.println("hello from service");
     }
 }

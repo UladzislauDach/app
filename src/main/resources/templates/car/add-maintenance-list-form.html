@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload maintenance list</title>
+</head>
+<body>
+<form action="#" th:action="@{add-maintenance-list}" th:object="${maintenanceUpload}" enctype="multipart/form-data"
+      method="post">
+    <form:label for="file" path="file">Загрузить шаблон обслуживания авто</form:label>
+
+    <input type="file" th:field="*{excelFile}" id="file">
+    <input type="submit" value="Upload"/>
+</form>
+</body>
+</html>
