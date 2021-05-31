@@ -23,11 +23,13 @@ public class CarService {
     private final CarRepository carRepository;
     private final EntityMapper entityMapper;
     static final Logger log = LoggerFactory.getLogger(CarService.class);
+    private MaintenanceExcelParser maintenanceExcelParser;
 
     @Autowired
-    public CarService(CarRepository carRepository, EntityMapper entityMapper) {
+    public CarService(CarRepository carRepository, EntityMapper entityMapper, MaintenanceExcelParser maintenanceExcelParser) {
         this.carRepository = carRepository;
         this.entityMapper = entityMapper;
+        this.maintenanceExcelParser = maintenanceExcelParser;
     }
 
     @Transactional
@@ -104,6 +106,6 @@ public class CarService {
     }
 
     public void addMaintenanceList(MaintenanceUploadForm file) {
-        System.out.println("hello from service");
+        System.out.println(maintenanceExcelParser.getMaintenanceMap(file.getExcelFile()));
     }
 }

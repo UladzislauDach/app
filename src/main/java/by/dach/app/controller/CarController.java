@@ -1,5 +1,6 @@
 package by.dach.app.controller;
 
+import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.service.CarService;
@@ -19,10 +20,12 @@ public class CarController {
     static final Logger log = LoggerFactory.getLogger(CarController.class);
 
     private final CarService carService;
+    private final EntityMapper entityMapper;
 
     @Autowired
-    public CarController(CarService carService) {
+    public CarController(CarService carService, EntityMapper entityMapper) {
         this.carService = carService;
+        this.entityMapper = entityMapper;
     }
 
     @GetMapping
@@ -119,6 +122,8 @@ public class CarController {
 
     @GetMapping("add-maintenance-list")
     public String getMaintenanceForm(Model model) {
+        MaintenanceUploadForm maintenanceUploadForm;
+
         model.addAttribute("maintenanceUpload", new MaintenanceUploadForm());
         return "car/add-maintenance-list-form";
     }
@@ -127,7 +132,6 @@ public class CarController {
     public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm) {
         log.info("File uploaded name {}, size {}", maintenanceUploadForm.getExcelFile().getOriginalFilename(),
                 maintenanceUploadForm.getExcelFile().getSize());
-
         carService.addMaintenanceList(maintenanceUploadForm);
         return "redirect:/cars";
     }

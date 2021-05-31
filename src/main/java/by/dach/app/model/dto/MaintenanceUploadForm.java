@@ -3,7 +3,7 @@ package by.dach.app.model.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MaintenanceUploadForm {
-    MultipartFile excelFile;
+    private MultipartFile excelFile;
 
     public MaintenanceUploadForm(MultipartFile excelFile) {
         this.excelFile = excelFile;
