@@ -23,7 +23,7 @@ public class MaintenanceExcelParser {
         }
     }
 
-    public  Map<BodyType, List<MaintenanceDto>> getMaintenanceMap(MultipartFile file) {
+    public Map<BodyType, List<MaintenanceDto>> getMaintenanceMap(MultipartFile file) {
         initWorkbook(file);
         int sheetQuantity = workbook.getNumberOfSheets();
         Map<BodyType, List<MaintenanceDto>> result = new HashMap<>();
