@@ -4,6 +4,7 @@ import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.service.CarService;
+import by.dach.app.service.MaintenanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -20,12 +20,12 @@ public class CarController {
     static final Logger log = LoggerFactory.getLogger(CarController.class);
 
     private final CarService carService;
-    private final EntityMapper entityMapper;
+    private final MaintenanceService maintenanceService;
 
     @Autowired
-    public CarController(CarService carService, EntityMapper entityMapper) {
+    public CarController(CarService carService, MaintenanceService maintenanceService) {
         this.carService = carService;
-        this.entityMapper = entityMapper;
+        this.maintenanceService = maintenanceService;
     }
 
     @GetMapping
@@ -132,7 +132,7 @@ public class CarController {
     public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm) {
         log.info("File uploaded name {}, size {}", maintenanceUploadForm.getExcelFile().getOriginalFilename(),
                 maintenanceUploadForm.getExcelFile().getSize());
-        carService.addMaintenanceList(maintenanceUploadForm);
+        maintenanceService.addMaintenanceList(maintenanceUploadForm);
         return "redirect:/cars";
     }
 

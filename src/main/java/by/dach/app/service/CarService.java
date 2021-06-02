@@ -4,8 +4,10 @@ import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.*;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.CarListDto;
+import by.dach.app.model.dto.MaintenanceDto;
 import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.repository.CarRepository;
+import by.dach.app.repository.MaintenanceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,13 +26,11 @@ public class CarService {
     private final CarRepository carRepository;
     private final EntityMapper entityMapper;
     static final Logger log = LoggerFactory.getLogger(CarService.class);
-    private MaintenanceExcelParser maintenanceExcelParser;
 
     @Autowired
-    public CarService(CarRepository carRepository, EntityMapper entityMapper, MaintenanceExcelParser maintenanceExcelParser) {
+    public CarService(CarRepository carRepository, EntityMapper entityMapper) {
         this.carRepository = carRepository;
         this.entityMapper = entityMapper;
-        this.maintenanceExcelParser = maintenanceExcelParser;
     }
 
     @Transactional
@@ -105,7 +106,4 @@ public class CarService {
         carRepository.editCarPriceById(id, price);
     }
 
-    public void addMaintenanceList(MaintenanceUploadForm file) {
-        System.out.println(maintenanceExcelParser.getMaintenanceMap(file.getExcelFile()));
-    }
 }

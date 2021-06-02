@@ -2,9 +2,7 @@ package by.dach.app.mappers;
 
 import by.dach.app.model.Car;
 import by.dach.app.model.User;
-import by.dach.app.model.dto.CarFormDto;
-import by.dach.app.model.dto.CarListDto;
-import by.dach.app.model.dto.UserFormDto;
+import by.dach.app.model.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -26,5 +24,8 @@ public interface EntityMapper {
 
     @Mapping(target = "carId", source = "car.id")
     UserFormDto userToUserFormDto(User user);
+
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+    Maintenance maintenanceDtoToMaintenance(MaintenanceDto maintenanceDto);
 
 }
