@@ -9,7 +9,6 @@ import by.dach.app.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,15 +29,12 @@ public class MaintenanceService {
 
     public void addMaintenanceList(MaintenanceUploadForm file) {
         Map<BodyType, List<MaintenanceDto>> maintenanceMap = maintenanceExcelParser.getMaintenanceMap(file.getExcelFile());
-        Iterator<BodyType> iterator = maintenanceMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            BodyType bodyType = iterator.next();
-            for (MaintenanceDto a : maintenanceMap.get(bodyType)){
+        for (BodyType bodyType : maintenanceMap.keySet()) {
+            for (MaintenanceDto a : maintenanceMap.get(bodyType)) {
                 Maintenance maintenance = entityMapper.maintenanceDtoToMaintenance(a);
                 maintenance.setBodyType(bodyType);
                 maintenanceRepository.save(maintenance);
             }
         }
-
     }
 }

@@ -5,7 +5,6 @@ import by.dach.app.model.dto.MaintenanceDto;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +18,7 @@ public class MaintenanceExcelParser {
     private void initWorkbook(MultipartFile file) {
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             this.workbook = workbook;
-        } catch (IOException e) {
+        } catch (IOException e) { //ZipException ??
             System.out.println("test");
         }
     }
