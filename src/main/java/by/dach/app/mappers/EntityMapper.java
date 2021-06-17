@@ -1,5 +1,6 @@
 package by.dach.app.mappers;
 
+import by.dach.app.model.BodyType;
 import by.dach.app.model.Car;
 import by.dach.app.model.User;
 import by.dach.app.model.dto.*;
@@ -26,6 +27,7 @@ public interface EntityMapper {
     UserFormDto userToUserFormDto(User user);
 
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
-    Maintenance maintenanceDtoToMaintenance(MaintenanceDto maintenanceDto);
+    @Mapping(target = "bodyType", expression = "java(bodyType)")
+    Maintenance maintenanceDtoToMaintenance(MaintenanceDto maintenanceDto, BodyType bodyType);
 
 }

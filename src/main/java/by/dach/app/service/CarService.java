@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class CarService {
     private final CarRepository carRepository;
     private final EntityMapper entityMapper;
-    static final Logger log = LoggerFactory.getLogger(CarService.class);
+    private static final Logger log = LoggerFactory.getLogger(CarService.class);
 
     @Autowired
     public CarService(CarRepository carRepository, EntityMapper entityMapper) {
