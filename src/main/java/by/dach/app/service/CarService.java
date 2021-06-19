@@ -1,22 +1,19 @@
 package by.dach.app.service;
 
 import by.dach.app.mappers.EntityMapper;
-import by.dach.app.model.*;
+import by.dach.app.model.Car;
+import by.dach.app.model.CarServiceInfo;
+import by.dach.app.model.Transmission;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.CarListDto;
-import by.dach.app.model.dto.MaintenanceDto;
-import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.repository.CarRepository;
-import by.dach.app.repository.MaintenanceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,7 +33,7 @@ public class CarService {
     @Transactional
     public Car saveCar(CarFormDto carFormDto) {
         Car car = entityMapper.carDtoToCar(carFormDto);
-        car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
+       car.setCarServiceInfo(new CarServiceInfo(LocalDateTime.now(), carFormDto.getModel() + carFormDto.getBodyType()));
         log.info("Entity Car successful writing/update in to database: {}, {}, {}", carFormDto.getModel(), carFormDto.getBodyType(), carFormDto.getEngineVolume());
         return carRepository.save(car);
     }

@@ -122,8 +122,6 @@ public class CarController {
 
     @GetMapping("add-maintenance-list")
     public String getMaintenanceForm(Model model) {
-        MaintenanceUploadForm maintenanceUploadForm;
-
         model.addAttribute("maintenanceUpload", new MaintenanceUploadForm());
         return "car/add-maintenance-list-form";
     }

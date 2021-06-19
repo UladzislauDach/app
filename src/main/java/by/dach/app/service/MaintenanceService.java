@@ -37,7 +37,7 @@ public class MaintenanceService {
             for (MaintenanceDto entity : maintenanceMap.get(bodyType)) {
                 Maintenance maintenance = entityMapper.maintenanceDtoToMaintenance(entity, bodyType);
                 maintenanceRepository.save(maintenance);
-                log.info("Maintenance list for {} add to DB. Id: {}", maintenance.getBodyType().toString(), maintenance.getId());
+                log.info("Maintenance list for {} add to DB. Id: {}", maintenance.getBodyType(), maintenance.getId());
             }
         }
     }

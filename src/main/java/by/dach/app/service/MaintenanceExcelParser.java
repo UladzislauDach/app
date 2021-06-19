@@ -19,7 +19,7 @@ public class MaintenanceExcelParser {
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             this.workbook = workbook;
         } catch (IOException e) { //ZipException ??
-            System.out.println("test");
+            System.out.println("test"); //todo log exception
         }
     }
 
