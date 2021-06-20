@@ -5,26 +5,32 @@ import by.dach.app.model.dto.MaintenanceDto;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
+import java.util.zip.ZipException;
 
 @Component
 public class MaintenanceExcelParser {
-    private Workbook workbook;
+    private static final Logger log = LoggerFactory.getLogger(MaintenanceService.class);
 
-    private void initWorkbook(MultipartFile file) {
-        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
-            this.workbook = workbook;
-        } catch (IOException e) { //ZipException ??
-            System.out.println("test"); //todo log exception
+    private Workbook parseWorkbook(MultipartFile file) {
+        Workbook workbook = null;
+        try (InputStream inputStream = file.getInputStream()) {
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            log.error("IO error in MaintenanceExcelParser");
         }
+        return workbook;
     }
 
     public Map<BodyType, List<MaintenanceDto>> getMaintenanceMap(MultipartFile file) {
-        initWorkbook(file);
+        Workbook workbook = parseWorkbook(file);
         int sheetQuantity = workbook.getNumberOfSheets();
         Map<BodyType, List<MaintenanceDto>> result = new HashMap<>();
         for (int i = 0; i < sheetQuantity; i++) {
