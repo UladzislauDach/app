@@ -4,6 +4,7 @@ import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
 import by.dach.app.model.dto.UserFormDto;
+import by.dach.app.service.CarService;
 import by.dach.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,10 +25,12 @@ import java.util.stream.IntStream;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final CarService carService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CarService carService) {
         this.userService = userService;
+        this.carService = carService;
     }
 
     @GetMapping
@@ -37,12 +43,15 @@ public class UserController {
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new UserFormDto());
+        List<Integer> listId = carService.getAllId();
+        Collections.sort(listId);
+        model.addAttribute("listId", listId);
         return "user/form-of-creation";
     }
 
     @PostMapping("/save")
     public String createUser(UserFormDto userFormDto) {
-        userService.saveUser(userFormDto);
+        userService.saveNewUser(userFormDto);
         return "redirect:/";
     }
 
@@ -53,7 +62,10 @@ public class UserController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateUserForm(@PathVariable("id") int id, Model model) {
+    public String updateForm(@PathVariable("id") int id, Model model) {
+        List<Integer> listId = carService.getAllId();
+        Collections.sort(listId);
+        model.addAttribute("listId", listId);
         UserFormDto userFormDto = userService.findUserById(id);
         model.addAttribute("userFormDto", userFormDto);
         return "user/update-form";
@@ -61,8 +73,24 @@ public class UserController {
 
     @PostMapping("/update" )
     public String updateUser(@Param("id") int id, UserFormDto userFormDto) {
-        userService.saveUser(userFormDto, id); //save сам определяет сох или обн
+        userService.updateUser(userFormDto, id); //save сам определяет сох или обн
         return "redirect:/";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable("id") int id, Model model){
+        UserFormDto userFormDto = userService.findUserById(id);
+        List<Integer> listId = carService.getAllId();
+        Collections.sort(listId);
+        model.addAttribute("listId", listId);
+        model.addAttribute("userFormDto", userFormDto);
+        return "user/edit-form";
+    }
+
+    @PostMapping ("/edit/{id}")
+    public String editUser (@PathVariable("id") int id, UserFormDto userFormDto){
+        userService.editUser(userFormDto, id);
+        return "redirect:/users";
     }
 
     @GetMapping("info/{id}")

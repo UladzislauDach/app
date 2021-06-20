@@ -10,8 +10,10 @@
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <label for="age">Age</label>
     <input type="number" th:field="*{age}" id="age" placeholder="Age">
-    <label for="carId">carId</label>
-    <input type="number" th:field="*{carId}" id="carId" placeholder="carId">
+    <label th:field="*{carId}">Car Id</label>
+    <select th:field="*{carId}">
+        <option th:each="id: ${listId}" th:text="${id}" th:value="${id}"/>
+    </select>
     <input type="submit" value="Edit user">
 </form>
 

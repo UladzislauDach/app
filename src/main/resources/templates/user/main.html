@@ -20,6 +20,7 @@
         <td th:text="${user.car.id}"></td>
         <td><a th:href="@{/users/info/{id}(id=${user.id})}">Show user info</a></td>
         <td><a th:href="@{/users/update/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit (MapSturct)</a></td>
         <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td>
     </tr>
 </table>

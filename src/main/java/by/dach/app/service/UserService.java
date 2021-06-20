@@ -2,9 +2,11 @@ package by.dach.app.service;
 
 import by.dach.app.mappers.EntityMapper;
 import by.dach.app.model.BodyType;
+import by.dach.app.model.Car;
 import by.dach.app.model.Transmission;
 import by.dach.app.model.User;
 import by.dach.app.model.dto.UserFormDto;
+import by.dach.app.repository.CarRepository;
 import by.dach.app.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -34,18 +37,31 @@ public class UserService {
     }
 
     @Transactional
-    public User saveUser(UserFormDto userFormDto, int id) {
+    public User updateUser(UserFormDto userFormDto, int id) {
         User user = entityMapper.userFormDtoToUser(userFormDto);
         user.setId(id);
-        log.info("Entity User successful writing/update in to database: {}, {}", "name " + user.getName(), "age" + user.getAge());
+        log.info("Entity User successful update in to database: {}, {}", "name " + user.getName(), "age" + user.getAge());
         return userRepository.save(user);
     }
 
     @Transactional
-    //rename
-    public User saveUser(UserFormDto userFormDto) {
-        return userRepository.save(entityMapper.userFormDtoToUser(userFormDto));
+    public User saveNewUser(UserFormDto userFormDto) {
+        User user = entityMapper.userFormDtoToUser(userFormDto);
+        log.info("Entity User successful save in to database: {}, {}", "name " + user.getName(), "age" + user.getAge());
+        return userRepository.save(user);
     }
+
+    @Transactional
+    public User editUser(UserFormDto userFormDto, int id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found User in the database"));
+        entityMapper.updateUserFromUserFormDto(userFormDto, user);
+        Car car = new Car();
+        car.setId(userFormDto.getCarId());
+        user.setCar(car);
+        log.info("Edit user in to database name: {}, age: {}", user.getName(), user.getAge());
+        return userRepository.save(user);
+    }
+
 
     @Transactional
     public void deleteUserById(int id) {

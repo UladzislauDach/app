@@ -103,4 +103,8 @@ public class CarService {
         carRepository.editCarPriceById(id, price);
     }
 
+    public List<Integer> getAllId(){
+        return carRepository.getAllId();
+    }
+
 }

@@ -6,6 +6,7 @@ import by.dach.app.model.User;
 import by.dach.app.model.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
@@ -29,5 +30,9 @@ public interface EntityMapper {
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "bodyType", expression = "java(bodyType)")
     Maintenance maintenanceDtoToMaintenance(MaintenanceDto maintenanceDto, BodyType bodyType);
+
+    @Mapping(target = "id", ignore = true)
+    //@Mapping(target = "car.id", source = "carId")
+    void updateUserFromUserFormDto(UserFormDto userFormDto, @MappingTarget User user);
 
 }

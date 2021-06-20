@@ -24,6 +24,9 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     @Query(value = "select * from cars c where c.transmission = ?1", nativeQuery = true)
     List<Car> findCarByTransmissionType(String transmission_type);
 
+    @Query(value = "select id from cars", nativeQuery = true)
+    List<Integer> getAllId();
+
     @Modifying
     @Query("delete from Car c where c.id = :id")
     void deleteCarById(int id);

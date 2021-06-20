@@ -2,19 +2,22 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>New user form</title>
+    <title>Update user form</title>
 </head>
 <body>
-<form action="#" th:action="@{save}" th:object="${user}" method="post">
+<form action="#" th:action="@{/users/edit/{id}(id=${id})}" th:object="${userFormDto}" method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
     <label for="age">Age</label>
     <input type="number" th:field="*{age}" id="age" placeholder="Age">
+
     <label th:field="*{carId}">Car Id</label>
     <select th:field="*{carId}">
         <option th:each="id: ${listId}" th:text="${id}" th:value="${id}"/>
     </select>
-    <input type="submit" value="Add user">
+
+
+    <input type="submit" value="Edit user">
 </form>
 
 </body>

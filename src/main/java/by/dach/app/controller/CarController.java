@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -127,10 +128,11 @@ public class CarController {
     }
 
     @PostMapping("add-maintenance-list")
-    public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm) {
+    public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm, RedirectAttributes redirectAttributes) {
         log.info("File uploaded name {}, size {}", maintenanceUploadForm.getExcelFile().getOriginalFilename(),
                 maintenanceUploadForm.getExcelFile().getSize());
         maintenanceService.addMaintenanceList(maintenanceUploadForm);
+        redirectAttributes.addFlashAttribute("message", "Maintenance add successful");
         return "redirect:/cars";
     }
 
