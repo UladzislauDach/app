@@ -41,6 +41,10 @@ public class Car {
         this.carServiceInfo = carServiceInfo;
     }
 
+    public Car(int id) {
+        this.id = id;
+    }
+
     public Car() {
     }
 

@@ -12,11 +12,11 @@
         </encoder>
     </appender>
 
-    <logger name="by.dach.app" level="info">
+    <logger name="by.dach.app" level="INFO">
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="info">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 

@@ -2,7 +2,8 @@ package by.dach.app.model.dto;
 
 import by.dach.app.model.BodyType;
 import by.dach.app.model.Transmission;
-
+import lombok.Data;
+import lombok.Getter;
 public abstract class BaseCarDto {
     private int year;
     private String model;

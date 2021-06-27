@@ -32,7 +32,7 @@ public interface EntityMapper {
     Maintenance maintenanceDtoToMaintenance(MaintenanceDto maintenanceDto, BodyType bodyType);
 
     @Mapping(target = "id", ignore = true)
-    //@Mapping(target = "car.id", source = "carId")
+    @Mapping(target = "car", expression = "java(new Car(userFormDto.getCarId()))")
     void updateUserFromUserFormDto(UserFormDto userFormDto, @MappingTarget User user);
 
 }
