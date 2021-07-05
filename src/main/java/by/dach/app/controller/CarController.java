@@ -1,18 +1,26 @@
 package by.dach.app.controller;
 
-import by.dach.app.mappers.EntityMapper;
+import by.dach.app.exception.EmptyOrIllegalMaintenanceFileException;
 import by.dach.app.model.dto.CarFormDto;
 import by.dach.app.model.dto.MaintenanceUploadForm;
 import by.dach.app.service.CarService;
 import by.dach.app.service.MaintenanceService;
+import org.apache.poi.EmptyFileException;
+import org.apache.poi.UnsupportedFileFormatException;
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 
 @Controller
@@ -128,13 +136,21 @@ public class CarController {
     }
 
     @PostMapping("add-maintenance-list")
-    public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm, RedirectAttributes redirectAttributes) {
+    public String addMaintenanceList(MaintenanceUploadForm maintenanceUploadForm,
+                                     RedirectAttributes redirectAttributes) throws IOException {
+        try {
+            maintenanceService.addMaintenanceList(maintenanceUploadForm);
+            //EmptyFileException не наследуется от UnsupportedFileFormatException
+            // по этому его отдельно
+        } catch (EmptyFileException e) {
+            throw new EmptyOrIllegalMaintenanceFileException("Empty File!", e);
+        } catch (UnsupportedFileFormatException e) {
+            throw new EmptyOrIllegalMaintenanceFileException("Wrong file format!", e);
+        }
         log.info("File uploaded name {}, size {}", maintenanceUploadForm.getExcelFile().getOriginalFilename(),
                 maintenanceUploadForm.getExcelFile().getSize());
-        maintenanceService.addMaintenanceList(maintenanceUploadForm);
         redirectAttributes.addFlashAttribute("message", "Maintenance add successful");
         return "redirect:/cars";
     }
-
 }
 

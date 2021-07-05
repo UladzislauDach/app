@@ -2,6 +2,9 @@ package by.dach.app.service;
 
 import by.dach.app.model.BodyType;
 import by.dach.app.model.dto.MaintenanceDto;
+import org.apache.poi.EmptyFileException;
+import org.apache.poi.UnsupportedFileFormatException;
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -18,17 +21,24 @@ import java.util.*;
 public class MaintenanceExcelParser {
     private static final Logger log = LoggerFactory.getLogger(MaintenanceService.class);
 
-    private Workbook parseWorkbook(MultipartFile file) {
+    private Workbook parseWorkbook(MultipartFile file) throws IOException {
         Workbook workbook = null;
         try (InputStream inputStream = file.getInputStream()) {
             workbook = new XSSFWorkbook(inputStream);
-        } catch (IOException e) {
-            log.error("IO error in MaintenanceExcelParser");
+        }catch (EmptyFileException e){ //падете если пустой файл (этот эксепш тоже из poi)
+            log.error("File is empty! Size {} bytes ", file.getSize(), e);
+            throw e;
+        } catch (NotOfficeXmlFileException e) { //падает если галимый файл
+            log.error("File {} have not office xml format", file.getOriginalFilename(), e);
+            throw e;
+        } catch (UnsupportedFileFormatException e) { //падает во все остальных случаях
+            log.error("Unsupported file format {}", file.getOriginalFilename(), e);
+            throw e;
         }
         return workbook;
     }
 
-    public Map<BodyType, List<MaintenanceDto>> getMaintenanceMap(MultipartFile file) {
+    public Map<BodyType, List<MaintenanceDto>> getMaintenanceMap(MultipartFile file) throws IOException {
         Workbook workbook = parseWorkbook(file);
         int sheetQuantity = workbook.getNumberOfSheets();
         Map<BodyType, List<MaintenanceDto>> result = new HashMap<>();

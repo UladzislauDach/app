@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class MaintenanceService {
     }
 
     @Transactional
-    public void addMaintenanceList(MaintenanceUploadForm file) {
+    public void addMaintenanceList(MaintenanceUploadForm file) throws IOException {
         Map<BodyType, List<MaintenanceDto>> maintenanceMap = maintenanceExcelParser.getMaintenanceMap(file.getExcelFile());
         for (BodyType bodyType : maintenanceMap.keySet()) {
             for (MaintenanceDto entity : maintenanceMap.get(bodyType)) {

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Oops, error</title>
+</head>
+<body>
+<a href="/cars/add-maintenance-list">Go back</a>
+<h2 style="color: red">Oops, error(</h2>
+<h4 th:text="${exception.getMessage()}"></h4>
+<h5 th:each="ex : ${exception.getStackTrace()}" th:text="${ex}"></h5>
+</ul>
+</body>
+</html>
