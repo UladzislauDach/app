@@ -36,6 +36,7 @@ public class CarListDto extends BaseCarDto {
         return volume;
     }
 
+
     public void setVolume(int volume) {
         this.volume = volume;
     }
